@@ -5,14 +5,12 @@ import cors from "cors";
 
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
-import adminRoutes from "./routes/admin.route.js"; // ✅ imports ke saath
+import adminRoutes from "./routes/admin.route.js";
 import { connectDB } from "./lib/db.js";
 import { ENV } from "./lib/env.js";
 import { app, server } from "./lib/socket.js";
 
 const __dirname = path.resolve();
-console.log("Frontend path:", path.join(__dirname, "../frontend/dist"));
-const frontendPath = path.join(__dirname, "../frontend/dist");
 const PORT = ENV.PORT || 3000;
 
 app.use(express.json({ limit: "5mb" }));
@@ -21,14 +19,15 @@ app.use(
     origin: [ENV.CLIENT_URL, "https://vksahu07.github.io"],
     credentials: true,
   }),
-);app.use(cookieParser());
+);
+app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
-app.use("/api/admin", adminRoutes); // ✅ routes ke saath
+app.use("/api/admin", adminRoutes);
 
 if (ENV.NODE_ENV === "production") {
-  const frontendDist = path.join(__dirname, "../../frontend/dist");
+  const frontendDist = path.join(__dirname, "../../../frontend/dist");
   app.use(express.static(frontendDist));
   app.get("*", (_, res) => {
     res.sendFile(path.join(frontendDist, "index.html"));
