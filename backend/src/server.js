@@ -11,6 +11,7 @@ import { ENV } from "./lib/env.js";
 import { app, server } from "./lib/socket.js";
 
 const __dirname = path.resolve();
+console.log("Frontend path:", path.join(__dirname, "../frontend/dist"));
 const frontendPath = path.join(__dirname, "../frontend/dist");
 const PORT = ENV.PORT || 3000;
 
@@ -27,9 +28,10 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/admin", adminRoutes); // ✅ routes ke saath
 
 if (ENV.NODE_ENV === "production") {
-  app.use(express.static(frontendPath));
+  const frontendDist = path.join(__dirname, "../../frontend/dist");
+  app.use(express.static(frontendDist));
   app.get("*", (_, res) => {
-    res.sendFile(path.join(frontendPath, "index.html"));
+    res.sendFile(path.join(frontendDist, "index.html"));
   });
 }
 
