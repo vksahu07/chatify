@@ -27,7 +27,7 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/admin", adminRoutes);
 
 if (ENV.NODE_ENV === "production") {
-  const frontendDist = path.join(__dirname, "../../../frontend/dist");
+  const frontendDist = "/opt/render/project/src/frontend/dist";
   app.use(express.static(frontendDist));
   app.get("*", (_, res) => {
     res.sendFile(path.join(frontendDist, "index.html"));
