@@ -1,33 +1,42 @@
-import { MessageCircleIcon } from "lucide-react";
+import { LockIcon } from "lucide-react";
+import { useChatStore } from "../store/useChatStore";
+
+const QUICK_MESSAGES = [
+  "👋 Say Hello",
+  "🤝 How are you?",
+  "📅 Meet up soon?",
+  "🔥 What's up!",
+  "😄 Long time no see!",
+];
 
 const NoChatHistoryPlaceholder = ({ name }) => {
+  const { sendMessage } = useChatStore();
+
+  const handleQuickSend = (msg) => {
+    sendMessage({ text: msg, image: null });
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center h-full text-center p-6">
-      <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-cyan-400/10 rounded-full flex items-center justify-center mb-5">
-        <MessageCircleIcon className="size-8 text-cyan-400" />
+    <div className="flex flex-col items-center justify-center h-full text-center px-4 py-8">
+      <div className="inline-flex items-center gap-2 bg-slate-700/40 rounded-full px-4 py-2 text-slate-400 text-xs mb-4">
+        <LockIcon className="w-3 h-3" />
+        Messages are end-to-end encrypted
       </div>
-      <h3 className="text-lg font-medium text-slate-200 mb-3">
-        Start your conversation with {name}
-      </h3>
-      <div className="flex flex-col space-y-3 max-w-md mb-5">
-        <p className="text-slate-400 text-sm">
-          This is the beginning of your conversation. Send a message to start chatting!
-        </p>
-        <div className="h-px w-32 bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent mx-auto"></div>
-      </div>
+      <p className="text-slate-500 text-sm mb-4">
+        Say hi to <span className="text-slate-300 font-medium">{name}</span>!
+      </p>
       <div className="flex flex-wrap gap-2 justify-center">
-        <button className="px-4 py-2 text-xs font-medium text-cyan-400 bg-cyan-500/10 rounded-full hover:bg-cyan-500/20 transition-colors">
-          👋 Say Hello
-        </button>
-        <button className="px-4 py-2 text-xs font-medium text-cyan-400 bg-cyan-500/10 rounded-full hover:bg-cyan-500/20 transition-colors">
-          🤝 How are you?
-        </button>
-        <button className="px-4 py-2 text-xs font-medium text-cyan-400 bg-cyan-500/10 rounded-full hover:bg-cyan-500/20 transition-colors">
-          📅 Meet up soon?
-        </button>
+        {QUICK_MESSAGES.map((msg) => (
+          <button
+            key={msg}
+            onClick={() => handleQuickSend(msg)}
+            className="px-4 py-2 text-xs font-medium text-cyan-400 bg-cyan-500/10 rounded-full border border-cyan-500/20 hover:bg-cyan-500/20 transition-all cursor-pointer"
+          >
+            {msg}
+          </button>
+        ))}
       </div>
     </div>
   );
 };
-
 export default NoChatHistoryPlaceholder;
