@@ -276,8 +276,8 @@
 <script>
   // ——— CONFIG ———
   // Replace this with your Chatify backend URL
-  const API_BASE = (localStorage.getItem('chatify_api') || prompt('Enter your Chatify backend URL (e.g. https://chatify-xxxx.onrender.com)') || '').replace(/\/$/, '');
-  if (API_BASE) localStorage.setItem('chatify_api', API_BASE);
+  const API_BASE = "https://chatify-sus3.onrender.com";
+
 
   let token = localStorage.getItem('admin_token') || '';
   let userPage = 1, msgPage = 1, userSearch = '';
