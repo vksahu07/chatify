@@ -14,7 +14,9 @@ export const signup = async (req, res) => {
     }
 
     if (password.length < 6) {
-      return res.status(400).json({ message: "Password must be at least 6 characters" });
+      return res
+        .status(400)
+        .json({ message: "Password must be at least 6 characters" });
     }
 
     // check if emailis valid: regex
@@ -54,7 +56,11 @@ export const signup = async (req, res) => {
       });
 
       try {
-        await sendWelcomeEmail(savedUser.email, savedUser.fullName, ENV.CLIENT_URL);
+        await sendWelcomeEmail(
+          savedUser.email,
+          savedUser.fullName,
+          ENV.CLIENT_URL,
+        );
       } catch (error) {
         console.error("Failed to send welcome email:", error);
       }
@@ -62,8 +68,9 @@ export const signup = async (req, res) => {
       res.status(400).json({ message: "Invalid user data" });
     }
   } catch (error) {
-    console.log("Error in signup controller:", error);
-    res.status(500).json({ message: "Internal server error" });
+    console.log("Error in update profile:", error.message);
+    console.log("Full error:", JSON.stringify(error, null, 2));
+    res.status(500).json({ message: error.message });
   }
 };
 
