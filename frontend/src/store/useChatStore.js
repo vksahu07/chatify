@@ -89,10 +89,12 @@ export const useChatStore = create((set, get) => ({
         `/messages/send/${selectedUser._id}`,
         messageData,
       );
-      set({ messages: messages.concat(res.data) });
+      set({ messages: [...messages, res.data] });
     } catch (error) {
+      // Remove optimistic message on error
       set({ messages });
-      toast.error(error.response?.data?.message || "Something went wrong");
+      const errMsg = error.response?.data?.message || "Something went wrong";
+      toast.error(errMsg);
     }
   },
 
