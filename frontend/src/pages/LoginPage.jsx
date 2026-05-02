@@ -15,6 +15,7 @@ const DEMO_PASSWORD = "demo1234";
 
 function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [isDemo, setIsDemo] = useState(false);
   const { login, isLoggingIn } = useAuthStore();
 
   const handleSubmit = (e) => {
@@ -22,15 +23,14 @@ function LoginPage() {
     login(formData);
   };
 
-  const handleDemoLogin = () => {
-    const demoData = { email: DEMO_EMAIL, password: DEMO_PASSWORD };
-    setFormData(demoData);
-    login(demoData);
+  const handleDemoFill = () => {
+    setFormData({ email: DEMO_EMAIL, password: DEMO_PASSWORD });
+    setIsDemo(true);
   };
 
   return (
     <div className="w-full flex items-center justify-center p-4 bg-slate-900">
-      <div className="relative w-full max-w-6xl md:h-[800px] h-[700px]">
+      <div className="relative w-full max-w-6xl md:h-[800px] h-[650px]">
         <BorderAnimatedContainer>
           <div className="w-full flex flex-col md:flex-row">
             <div className="md:w-1/2 p-8 flex items-center justify-center md:border-r border-slate-600/30">
@@ -43,61 +43,33 @@ function LoginPage() {
                   <p className="text-slate-400">Login to access your account</p>
                 </div>
 
-                <div className="mb-6 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5">
-                  <p className="text-xs text-cyan-400 font-medium mb-1 uppercase tracking-wider">
-                    🎯 Recruiter / Demo Access
-                  </p>
-                  <p className="text-xs text-slate-400 mb-3">
-                    Try the app instantly without signing up!
-                  </p>
-                  <div className="flex gap-2 text-xs text-slate-400 mb-3">
-                    <div className="flex-1 bg-slate-800 rounded-lg px-3 py-2">
-                      <span className="text-slate-500">Email: </span>
-                      <span className="text-slate-200 font-mono">
-                        {DEMO_EMAIL}
-                      </span>
-                    </div>
-                    <div className="flex-1 bg-slate-800 rounded-lg px-3 py-2">
-                      <span className="text-slate-500">Pass: </span>
-                      <span className="text-slate-200 font-mono">
-                        {DEMO_PASSWORD}
-                      </span>
-                    </div>
-                  </div>
-                  <button
-                    onClick={handleDemoLogin}
-                    disabled={isLoggingIn}
-                    className="w-full flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white text-sm font-medium py-2.5 rounded-lg transition-all"
-                  >
-                    <ZapIcon className="w-4 h-4" />
-                    Try Demo — One Click Login
-                  </button>
-                </div>
-
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="flex-1 h-px bg-slate-700" />
-                  <span className="text-slate-500 text-xs">
-                    or login with your account
-                  </span>
-                  <div className="flex-1 h-px bg-slate-700" />
-                </div>
-
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* EMAIL */}
                   <div>
-                    <label className="auth-input-label">Email</label>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="auth-input-label">Email</label>
+                      {isDemo && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-mono">
+                          demo
+                        </span>
+                      )}
+                    </div>
                     <div className="relative">
                       <MailIcon className="auth-input-icon" />
                       <input
                         type="email"
                         value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          setIsDemo(false);
+                        }}
                         className="input"
                         placeholder="johndoe@gmail.com"
                       />
                     </div>
                   </div>
+
+                  {/* PASSWORD */}
                   <div>
                     <label className="auth-input-label">Password</label>
                     <div className="relative">
@@ -105,14 +77,20 @@ function LoginPage() {
                       <input
                         type="password"
                         value={formData.password}
-                        onChange={(e) =>
-                          setFormData({ ...formData, password: e.target.value })
-                        }
+                        onChange={(e) => {
+                          setFormData({
+                            ...formData,
+                            password: e.target.value,
+                          });
+                          setIsDemo(false);
+                        }}
                         className="input"
                         placeholder="Enter your password"
                       />
                     </div>
                   </div>
+
+                  {/* SUBMIT */}
                   <button
                     className="auth-btn"
                     type="submit"
@@ -126,8 +104,16 @@ function LoginPage() {
                   </button>
                 </form>
 
-                <div className="mt-6 text-center">
-                  <Link to="/signup" className="auth-link">
+                {/* DEMO + SIGNUP */}
+                <div className="mt-5 flex items-center justify-between">
+                  <button
+                    onClick={handleDemoFill}
+                    className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-cyan-400 transition-colors"
+                  >
+                    <ZapIcon className="w-3 h-3" />
+                    Try with demo account
+                  </button>
+                  <Link to="/signup" className="auth-link text-xs">
                     Don't have an account? Sign Up
                   </Link>
                 </div>
