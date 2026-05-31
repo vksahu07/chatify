@@ -29,12 +29,19 @@ app.use("/api/admin", adminRoutes);
 
 if (ENV.NODE_ENV === "production") {
   const frontendDist = "/opt/render/project/src/frontend/dist";
-  app.use(express.static(frontendDist));
+  app.use(express.static(frontendDist, {
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith('.js') || filePath.endsWith('.mjs')) {
+        res.setHeader('Content-Type', 'application/javascript');
+      } else if (filePath.endsWith('.css')) {
+        res.setHeader('Content-Type', 'text/css');
+      }
+    }
+  }));
   app.get("*", (_, res) => {
     res.sendFile(path.join(frontendDist, "index.html"));
   });
 }
-
 server.listen(PORT, () => {
   console.log("Server running on port: " + PORT);
   connectDB();
