@@ -1,65 +1,130 @@
-<h1 align="center">✨ Full-Stack Chat App with Auth & Emails ✨</h1>
+# Chatify — Real-Time Chat Application
 
+A full-stack real-time chat application built with the **MERN Stack**, **Socket.io** and **Zustand**.
 
+🔗 **Live Demo:** [https://chatify-ymg3.onrender.com](https://chatify-ymg3.onrender.com)  
 
-Highlights:
-
-- 🔐 Custom JWT Authentication (no 3rd-party auth)
-- ⚡ Real-time Messaging via Socket.io
-- 🟢 Online/Offline Presence Indicators
-- 🔔 Notification & Typing Sounds (with toggle)
-- 📨 Welcome Emails on Signup (Resend)
-- 🗂️ Image Uploads (Cloudinary)
-- 🧰 REST API with Node.js & Express
-- 🧱 MongoDB for Data Persistence
-- 🚦 API Rate-Limiting powered by Arcjet
-- 🎨 Beautiful UI with React, Tailwind CSS & DaisyUI
-- 🧠 Zustand for State Management
-- 🧑‍💻 Git & GitHub Workflow (branches, PRs, merges)
-- 🚀 Easy Deployment (free-tier friendly with Sevalla)
+💻 **GitHub:** [https://github.com/vksahu07/chatify](https://github.com/vksahu07/chatify)
 
 ---
 
-## 🧪 .env Setup
+## 👨‍💻 Developer
 
-### Backend (`/backend`)
+**Vivek  Sahu**  
+
+Full Stack Developer (MERN Stack)  
+
+📧 vksahu07939@gmail.com
+
+---
+
+## ✨ Features
+
+- Real-time messaging with Socket.io
+
+- Online/Offline presence indicators
+
+- Typing indicator
+
+- Image sharing in messages
+
+- Unread message count
+
+- User authentication (Register/Login/Logout)
+
+- Profile picture upload
+
+- Sound notifications (with toggle)
+
+- JWT based secure authentication
+
+- MongoDB Atlas cloud database
+
+- Responsive design
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+
+- React.js + Vite
+
+- Zustand (State Management)
+
+- TailwindCSS + DaisyUI
+
+- Socket.io Client
+
+- Axios
+
+- React Router DOM
+
+**Backend:**
+
+- Node.js
+
+- Express.js
+
+- MongoDB + Mongoose
+
+- Socket.io
+
+- JWT Authentication
+
+- Cloudinary (Image Upload)
+
+- Resend (Email Service)
+
+- Arcjet (Rate Limiting)
+
+**Deployment:**
+
+- MongoDB Atlas
+
+- Render.com
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js v18+
+
+- MongoDB Atlas account
+
+- Cloudinary account
+
+- Resend account
+
+### Clone the repo
 
 ```bash
-PORT=3000
-MONGO_URI=your_mongo_uri_here
 
-NODE_ENV=development
+git clone https://github.com/vksahu07/chatify.git
 
-JWT_SECRET=your_jwt_secret
+cd chatify
 
-RESEND_API_KEY=your_resend_api_key
-EMAIL_FROM=your_email_from_address
-EMAIL_FROM_NAME=your_email_from_name
-
-CLIENT_URL=http://localhost:5173
-
-CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
-CLOUDINARY_API_KEY=your_cloudinary_api_key
-CLOUDINARY_API_SECRET=your_cloudinary_api_secret
-
-ARCJET_KEY=your_arcjet_key
-ARCJET_ENV=development
 ```
-
----
-
-## 🔧 Run the Backend
-
+### Run Backend
 ```bash
 cd backend
 npm install
 npm run dev
 ```
 
-## 💻 Run the Frontend
-
+### Run Frontend
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+
+---
+
+## 📄 License
+
+MIT License — Free to use and modify.
+
+
