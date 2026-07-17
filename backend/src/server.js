@@ -44,7 +44,11 @@ if (ENV.NODE_ENV === "production") {
     res.sendFile(path.join(frontendDist, "index.html"));
   });
 }
-server.listen(PORT, () => {
-  console.log("Server running on port: " + PORT);
-  connectDB();
-});
+// Connect to database
+connectDB();
+
+if (!process.env.VERCEL) {
+  server.listen(PORT, () => {
+    console.log("Server running on port: " + PORT);
+  });
+}
