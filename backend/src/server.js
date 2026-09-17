@@ -25,6 +25,17 @@ app.use(
 );
 app.use(cookieParser());
 
+// Ensure Database Connection for serverless and standard environments
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error("Database connection middleware error:", err);
+    res.status(500).json({ message: "Database connection failed. Please verify MONGO_URI in Environment Variables." });
+  }
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/admin", adminRoutes);
